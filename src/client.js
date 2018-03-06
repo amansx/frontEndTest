@@ -26,7 +26,7 @@ function initSocket() {
   let socket = io('', SOCKETOPTIONS);
   socket.on('snapshot', (data) => {
     console.log(data);
-    socket.emit('my other event', { my: 'data from client' });
+    // socket.emit('my other event', { my: 'data from client' });
   });
   socket.on('update', (data) => {
     console.log(data);
