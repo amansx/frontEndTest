@@ -21,8 +21,9 @@ const dest = document.getElementById('content');
 const store = createStore(_browserHistory, client, window.__data);
 const history = syncHistoryWithStore(_browserHistory, store);
 
+const SOCKETOPTIONS = {path: '/ws', forceNew: true, reconnectionDelay: 5000};
 function initSocket() {
-  let socket = io('', {path: '/ws'});
+  let socket = io('', SOCKETOPTIONS);
   socket.on('snapshot', (data) => {
     console.log(data);
     socket.emit('my other event', { my: 'data from client' });
@@ -30,7 +31,12 @@ function initSocket() {
   socket.on('update', (data) => {
     console.log(data);
   });
+  socket.on('connect_error', (err) => {
+    console.log('err', err.message);
+    console.log('retrying in 5 seconds..');
+  });
   socket.on('disconnect',() => {
+    console.log('Disconnecting...');
     socket = undefined;
   });
   return socket;
