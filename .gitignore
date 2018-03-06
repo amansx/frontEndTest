@@ -5,5 +5,5 @@ dist/
 webpack-assets.json
 webpack-stats.json
 npm-debug.log
-build/
+build/ui-dist/
 .DS_Store
